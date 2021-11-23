@@ -3,7 +3,7 @@
     <div>
         <input type="checkbox" v-model="msg.done">
         {{ msg.title }}
-        <span>X</span>
+        <span v-on:click="deleteItem">X</span>
     </div>
   </div>
 </template>
@@ -13,6 +13,11 @@ export default {
   name: 'HelloWorld',
   props: {
     msg: String
+  },
+  methods: {
+    deleteItem(){
+      this.$emit('delete-item', this.msg)
+    }
   }
 }
 </script>
