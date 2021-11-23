@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="components-demo">
+        <item
+            v-for="todo in todos"
+            :teendo="todo"
+            v-on:delete-item="deleteItem">
+        </item>
+    </div>
+    <script>
+        Vue.component('item', {
+          props: ['teendo'],
+          template:
+              `
+              <div>
+                  <input type="checkbox" v-model="teendo.done"/>
+                  {{ teendo.title }}
+                  <span v-on:click="$emit('delete-item', teendo)">X</span>
+              </div>
+              `
+        })
+
+        let app = new Vue({
+          el: '#components-demo',
+          data: {
+              todos: [
+                  {
+                      title: 'Todo 1',
+                      done: false
+                  },
+                  {
+                      title: 'Todo 2',
+                      done: false
+                  },
+                  {
+                      title: 'Todo 3',
+                      done: false
+                  },
+              ],
+          },
+          methods: {
+              deleteItem(todo) {
+                  this.todos = this.todos.filter(function(item){
+                      return item.title != todo.title
+                  })
+              }
+          }
+      })
+    </script>
+  </body>
+</html>
